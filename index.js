@@ -9,7 +9,7 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://nsbs-2024.vercel.app/",
+    origin: "http://localhost:3000",
   },
 });
 
