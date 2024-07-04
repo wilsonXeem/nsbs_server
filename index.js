@@ -1,10 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const http = require("http");
 const app = express();
-
 const { Server } = require("socket.io");
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -69,13 +75,11 @@ app.get("/contestants", async (req, res, next) => {
         io.emit("me", contestants);
       });
 
-    res
-      .status(200)
-      .json({
-        message: "contestants successfully fetched",
-        type: "contestants",
-        contestants,
-      });
+    res.status(200).json({
+      message: "contestants successfully fetched",
+      type: "contestants",
+      contestants,
+    });
   } catch (error) {
     console.log(error, next);
   }
